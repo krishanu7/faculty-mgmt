@@ -1,0 +1,13 @@
+package com.faculty.grading.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.faculty.grading.entity.Employee;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+
+    @Query("select e.id from Employee e where e.email = :email")
+    Long findIdByEmail(@Param("email") String email);
+}
