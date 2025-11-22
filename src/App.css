@@ -1,0 +1,134 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.app-header nav a,
+.app-header nav button {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  cursor: pointer;
+  color: #111;
+  text-decoration: none;
+}
+
+.app-header nav a:hover,
+.app-header nav button:hover {
+  background: rgba(255,255,255,1);
+}
+
+.app-header h1 { color: #111; margin:0; }
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.page {
+  text-align: left;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.page h2 {
+  margin-top: 0;
+}
+
+/* Simple UI classes replacing Tailwind */
+.login-card {
+  max-width: 520px;
+  width: calc(100% - 2rem);
+  margin: 3rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  color: #111;
+}
+.login-title { font-size: 1.25rem; margin-bottom: 0.75rem; }
+.login-form { display: flex; flex-direction: column; gap: 0.75rem; }
+.login-label-text { display: block; font-size: 0.875rem; color: #333; }
+.login-input { margin-top: 0.35rem; width: 100%; border: 1px solid #ccc; border-radius: 6px; padding: 0.5rem 0.75rem; }
+.login-hint { font-size: 0.75rem; color: #666; margin-top: 0.75rem }
+.text-error { color: #b91c1c; }
+.text-success { color: #047857; }
+
+.btn { border-radius: 6px; padding: 0.5rem 0.9rem; border: none; cursor: pointer }
+.btn-primary { background:#2563eb; color:#fff }
+.btn-success { background:#059669; color:#fff }
+
+.courses-card { max-width: 980px; width: calc(100% - 2rem); margin: 2rem auto; padding: 1.25rem; background:#ffffff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.12); }
+.courses-title { font-size:1.125rem; margin-bottom:0.75rem }
+.courses-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.5rem }
+.course-item { display:flex; justify-content:space-between; align-items:center; padding:0.75rem; border:1px solid #eef2ff; border-radius:8px }
+.course-name { font-weight:600 }
+.link { color:#2563eb; text-decoration: none }
+.muted { color:#6b7280 }
+
+.students-card { max-width: 1100px; width: calc(100% - 2rem); margin: 2rem auto; padding: 1.25rem; background:#ffffff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.12); }
+.students-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem }
+.students-title { font-size:1.125rem }
+.table-wrap { overflow-x:auto }
+.students-table { width:100%; border-collapse:collapse }
+.students-table thead { background: #f9fafb }
+.students-table .cell { padding:0.5rem 0.75rem; border-bottom:1px solid #e5e7eb }
+.row { border-top:1px solid #e5e7eb }
+.input-small { border:1px solid #ccc; padding:0.25rem 0.4rem; border-radius:4px; width:5.5rem }
+
+.mt-4 { margin-top:1rem }
+
+.bulk-controls { display:flex; gap:0.5rem; align-items:center; max-width:1100px; width:calc(100% - 2rem); margin:0.5rem auto 1rem; }
+.bulk-controls label { display:flex; align-items:center; gap:0.4rem }
+
+.read-the-docs {
+  color: #888;
+}
