@@ -20,10 +20,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
+
+    private static final String CLIENT_ID = "192670555270-ta3apcff43lffk8ld2r10rvnj0htfm61.apps.googleusercontent.com";
 
     private final com.sprintboot.facultyManagementSystem.repository.EmployeeRepository facultyRepository;
     private final CourseRepository courseRepository;
@@ -33,11 +36,11 @@ public class FacultyService {
     private final FacultyCourseRepository facultyCourseRepository;
 
     public FacultyService(com.sprintboot.facultyManagementSystem.repository.EmployeeRepository facultyRepository,
-                          CourseRepository courseRepository,
-                          StudentRepository studentRepository,
-                          StudentCourseRepository studentCourseRepository,
-                          GradeRepository gradeRepository,
-                          FacultyCourseRepository facultyCourseRepository) {
+            CourseRepository courseRepository,
+            StudentRepository studentRepository,
+            StudentCourseRepository studentCourseRepository,
+            GradeRepository gradeRepository,
+            FacultyCourseRepository facultyCourseRepository) {
         this.facultyRepository = facultyRepository;
         this.courseRepository = courseRepository;
         this.studentRepository = studentRepository;
@@ -48,6 +51,49 @@ public class FacultyService {
 
     public Employee getFacultyById(Long id) {
         return facultyRepository.findById(id).orElse(null);
+    }
+
+    public Employee login(String email, String password) {
+        Optional<Employee> opt = facultyRepository.findByEmail(email);
+        if (opt.isPresent()) {
+            Employee e = opt.get();
+            // TODO: Use hashed password comparison in production
+            if (password.equals(e.getPassword())) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    public Employee loginWithGoogle(String token) {
+        try {
+            com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier verifier = new com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier.Builder(
+                    new com.google.api.client.http.javanet.NetHttpTransport(),
+                    new com.google.api.client.json.gson.GsonFactory()).setAudience(Collections.singletonList(CLIENT_ID))
+                    // Or, if multiple clients access the backend:
+                    // .setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
+                    .build();
+
+            com.google.api.client.googleapis.auth.oauth2.GoogleIdToken idToken = verifier.verify(token);
+            if (idToken != null) {
+                com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload payload = idToken.getPayload();
+                String email = payload.getEmail();
+
+                Optional<Employee> opt = facultyRepository.findByEmail(email);
+                if (opt.isPresent()) {
+                    return opt.get();
+                } else {
+                    System.out.println("User not found for email: " + email);
+                    return null;
+                }
+            } else {
+                System.out.println("Invalid ID token.");
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public List<CourseDTO> getCoursesByFaculty(Long facultyId) {
@@ -78,7 +124,8 @@ public class FacultyService {
         }
         Course course = optCourse.get();
         // verify faculty (employee) teaches the course via faculty_courses mapping
-        com.sprintboot.facultyManagementSystem.model.FacultyCourse mapping = facultyCourseRepository.findByEmployee_IdAndCourse_Id(facultyId, courseId);
+        com.sprintboot.facultyManagementSystem.model.FacultyCourse mapping = facultyCourseRepository
+                .findByEmployee_IdAndCourse_Id(facultyId, courseId);
         if (mapping == null) {
             throw new IllegalArgumentException("Faculty does not teach this course");
         }

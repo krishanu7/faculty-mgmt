@@ -15,8 +15,10 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
 
-    public Employee() {}
+    public Employee() {
+    }
 
     public Employee(Long id, String firstName, String lastName) {
         this.id = id;
@@ -54,5 +56,13 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

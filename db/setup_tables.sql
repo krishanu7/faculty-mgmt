@@ -51,6 +51,7 @@ INSERT INTO student (roll_number, first_name, last_name) VALUES ('R002','Rounak'
 INSERT INTO student (roll_number, first_name, last_name) VALUES ('R003','Yash','Agarwal');
 INSERT INTO faculty_courses (employee_id, course_id) VALUES (1,1);
 INSERT INTO faculty_courses (employee_id, course_id) VALUES (1,2);
+INSERT INTO faculty_courses (employee_id, course_id) VALUES (2,2);
 INSERT INTO student_courses (student_id, course_id) VALUES (1,1);
 INSERT INTO student_courses (student_id, course_id) VALUES (2,1);
 INSERT INTO student_courses (student_id, course_id) VALUES (3,2);

@@ -1,13 +1,32 @@
 package com.sprintboot.facultyManagementSystem.dto;
 
 public class EmployeeLoginRequest {
-    private Long employeeId;
+    private String email;
+    private String password;
 
-    public Long getEmployeeId() {
-        return employeeId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String googleToken;
+
+    public String getGoogleToken() {
+        return googleToken;
+    }
+
+    public void setGoogleToken(String googleToken) {
+        this.googleToken = googleToken;
     }
 }

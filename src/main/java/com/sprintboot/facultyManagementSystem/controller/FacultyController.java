@@ -24,9 +24,15 @@ public class FacultyController {
 
     @PostMapping("/employee/login")
     public ResponseEntity<?> login(@RequestBody EmployeeLoginRequest request) {
-        Employee f = facultyService.getFacultyById(request.getEmployeeId());
+        Employee f;
+        if (request.getGoogleToken() != null && !request.getGoogleToken().isEmpty()) {
+            f = facultyService.loginWithGoogle(request.getGoogleToken());
+        } else {
+            f = facultyService.login(request.getEmail(), request.getPassword());
+        }
+
         if (f == null) {
-            return ResponseEntity.badRequest().body("Invalid employee id");
+            return ResponseEntity.badRequest().body("Invalid credentials");
         }
         return ResponseEntity.ok(f);
     }
