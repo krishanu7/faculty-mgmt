@@ -1,10 +1,11 @@
 const BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api'
 
-export async function loginEmployee(employeeId){
+export async function loginEmployee(email, password, googleToken){
+  const body = googleToken ? { googleToken } : { email, password }
   const res = await fetch(`${BASE}/employee/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ employeeId })
+    body: JSON.stringify(body)
   })
   if(!res.ok) throw new Error(await res.text())
   return res.json()
