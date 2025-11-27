@@ -9,6 +9,8 @@ import com.sprintboot.facultyManagementSystem.service.FacultyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import com.sprintboot.facultyManagementSystem.dto.LoginResponse;
+import com.sprintboot.facultyManagementSystem.security.JwtUtil;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -17,9 +19,11 @@ import java.util.List;
 public class FacultyController {
 
     private final FacultyService facultyService;
+    private final JwtUtil jwtUtil;
 
-    public FacultyController(FacultyService facultyService) {
+    public FacultyController(FacultyService facultyService, JwtUtil jwtUtil) {
         this.facultyService = facultyService;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/employee/login")
@@ -34,7 +38,19 @@ public class FacultyController {
         if (f == null) {
             return ResponseEntity.badRequest().body("Invalid credentials");
         }
-        return ResponseEntity.ok(f);
+
+        // Generate JWT token
+        String token = jwtUtil.generateToken(f.getEmail());
+
+        // Create response with token and employee details
+        LoginResponse response = new LoginResponse(
+                token,
+                f.getId(),
+                f.getEmail(),
+                f.getFirstName(),
+                f.getLastName());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/employee/{facultyId}/courses")
