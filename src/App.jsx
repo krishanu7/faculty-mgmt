@@ -1,20 +1,13 @@
 import './App.css'
 import { Link, Routes, Route } from 'react-router-dom'
 import { Home, About, Login, Courses, CourseStudents } from '@pages'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <>
-      <header className="app-header">
-        <h1>Faculty Frontend</h1>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/login">Login</Link>
-        </nav>
-      </header>
-
-      <main>
+    <div className="app-layout">
+      <Navbar />
+      <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -23,7 +16,7 @@ function App() {
           <Route path="/courses/:id/students" element={<CourseStudents />} />
         </Routes>
       </main>
-    </>
+    </div>
   )
 }
 

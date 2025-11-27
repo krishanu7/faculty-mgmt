@@ -33,30 +33,57 @@ export default function Login() {
   }
 
   return (
-    <div className="login-card">
-      <h2 className="login-title">Employee Login</h2>
-      <form onSubmit={onSubmit} className="login-form">
-        <label className="login-label">
-          <span className="login-label-text">Email</span>
-          <input className="login-input" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-        </label>
-        <label className="login-label">
-          <span className="login-label-text">Password</span>
-          <input className="login-input" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-        </label>
-        <div>
-          <button className="btn btn-primary" type="submit">Login</button>
-        </div>
-        <div style={{ marginTop: '1rem' }}>
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={() => {
-              setError('Google Login Failed');
-            }}
-          />
-        </div>
-        {error && <p className="text-error">{error}</p>}
-      </form>
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">Welcome Back</h2>
+        <form onSubmit={onSubmit} className="login-form">
+          <label className="login-label">
+            <span className="login-label-text">Email Address</span>
+            <input
+              className="login-input"
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              placeholder="Enter your email"
+            />
+          </label>
+          <label className="login-label">
+            <span className="login-label-text">Password</span>
+            <input
+              className="login-input"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              placeholder="Enter your password"
+            />
+          </label>
+
+          <button className="btn btn-primary" type="submit" style={{ marginTop: '0.5rem' }}>
+            Sign In
+          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '1rem 0' }}>
+            <div style={{ flex: 1, height: '1px', background: 'var(--border)' }}></div>
+            <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>or continue with</span>
+            <div style={{ flex: 1, height: '1px', background: 'var(--border)' }}></div>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => {
+                setError('Google Login Failed');
+              }}
+              theme="filled_blue"
+              shape="pill"
+            />
+          </div>
+
+          {error && <p className="text-error">{error}</p>}
+        </form>
+      </div>
     </div>
   )
 }
